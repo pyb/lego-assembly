@@ -1,5 +1,6 @@
 const cas = require("cassowary");
-const H = require("helpers");
+const H = require("./helpers");
+
 let bricks = [{ ref: 0,
                 pos: [0, 0, 0],
                 angle: 0,
