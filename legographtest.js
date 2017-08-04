@@ -2,40 +2,16 @@
 
 const cas = require("cassowary");
 const H = require("./helpers");
-
-let bricks = [{ ref: 0,
-                pos: [0, 0, 0],
-                angle: 0,
-                localStuds: [[0, -1, 0], [1, -1, 0]],
-                localHoles: [[0, 0, 0], [1, 0, 0]],
-                worldStuds: [H.createCVarPos(), H.createCVarPos()],
-                worldHoles: [H.createCVarPos(), H.createCVarPos()]
-              },
-              { ref: 1,
-                pos: H.createCVarPos(),
-                angle: 0,
-                localStuds: [[0, -1, 0], [1, -1, 0]],
-                localHoles: [[0, 0, 0], [1, 0, 0]],
-                worldStuds: [H.createCVarPos(), H.createCVarPos()],
-                worldHoles: [H.createCVarPos(), H.createCVarPos()]
-              },
-              { ref: 2,
-                pos: H.createCVarPos(),
-                angle: 0,
-                localStuds: [[0, -1, 0], [1, -1, 0]],
-                localHoles: [[0, 0, 0], [1, 0, 0]],
-                worldStuds: [H.createCVarPos(), H.createCVarPos()],
-                worldHoles: [H.createCVarPos(), H.createCVarPos()]
-              }];
+const G = require("./model");
 
 const addLinkToCSolver = (solver, nBrickA, nStudA, nBrickB, nHoleB) => {
-    const studPos = bricks[nBrickA].worldStuds[nStudA];
-    const holePos = bricks[nBrickB].worldHoles[nHoleB];
+    const studPos = G.bricks[nBrickA].worldStuds[nStudA];
+    const holePos = G.bricks[nBrickB].worldHoles[nHoleB];
     H.equaliseTwoArrays(solver, studPos, holePos);
 };
 
 const addWorldRelationToCSolver = (solver, nBrick) => {
-    const brick = bricks[nBrick];
+    const brick = G.bricks[nBrick];
     const studAw = brick.worldStuds[0];
     const studAb = brick.localStuds[0];
     const studBw = brick.worldStuds[1];
@@ -90,9 +66,9 @@ const testStuff = () => {
 
     solver.resolve();
 
-    console.log("Brick 0 position : ", bricks[0].pos);
-    console.log("Brick 1 position : ", bricks[1].pos);
-    console.log("Brick 2 position : ", bricks[2].pos);
+    console.log("Brick 0 position : ", G.bricks[0].pos);
+    console.log("Brick 1 position : ", G.bricks[1].pos);
+    console.log("Brick 2 position : ", G.bricks[2].pos);
 };
 
 testStuff();
