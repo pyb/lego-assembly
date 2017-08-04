@@ -10,12 +10,21 @@ const addArraysOfSameSize = (xs, ys) => {
 
 // helper fn 2
 const createCVarPos = () => {
-    const x = cas.Variable({ });
-    const y = cas.Variable({ });
-    const z = cas.Variable({ });
+    const x = new cas.Variable({ });
+    const y = new cas.Variable({ });
+    const z = new cas.Variable({ });
     return [x, y, z];
 };
 
-exports.module = { addArraysOfSameSize: addArraysOfSameSize,
-                   createCVarPos: createCVarPos
-                 };
+const equaliseTwoArrays = (solver, xs, ys) => {
+    for (let i = 0 ; i < 3 ; i++) {
+        const eq = new cas.Equation(xs[i], ys[i]);
+        solver.addConstraint(eq);
+    };
+};
+
+module.exports = {
+    addArraysOfSameSize: addArraysOfSameSize,
+    createCVarPos: createCVarPos,
+    equaliseTwoArrays: equaliseTwoArrays
+};
