@@ -12,48 +12,49 @@ const addLinkToCSolver = (solver, nBrickA, nStudA, nBrickB, nHoleB) => {
 
 const addWorldRelationToCSolver = (solver, nBrick) => {
     const brick = G.bricks[nBrick];
-    const studAw = brick.worldStuds[0];
-    const studAb = brick.localStuds[0];
-    const studBw = brick.worldStuds[1];
-    const studBb = brick.localStuds[1];
 
-    const holeAw = brick.worldHoles[0];
-    const holeAb = brick.localHoles[0];
-    const holeBw = brick.worldHoles[1];
-    const holeBb = brick.localHoles[1];
+    const worldStudA = brick.worldStuds[0];
+    const localStudA = brick.localStuds[0];
+    const worldStudB = brick.worldStuds[1];
+    const localStudB = brick.localStuds[1];
+
+    const worldHoleA = brick.worldHoles[0];
+    const localHoleA = brick.localHoles[0];
+    const worldHoleB = brick.worldHoles[1];
+    const localHoleB = brick.localHoles[1];
 
     const brickPos = brick.pos;
 
-    solver.addConstraint(new cas.Equation(studAw[0],
-                                          cas.plus(studAb[0], brickPos[0])));
-    solver.addConstraint(new cas.Equation(studAw[1],
-                                          cas.plus(studAb[1], brickPos[1])));
-    solver.addConstraint(new cas.Equation(studAw[2],
-                                          cas.plus(studAb[2], brickPos[2])));
+    solver.addConstraint(new cas.Equation(worldStudA[0],
+                                          cas.plus(localStudA[0], brickPos[0])));
+    solver.addConstraint(new cas.Equation(worldStudA[1],
+                                          cas.plus(localStudA[1], brickPos[1])));
+    solver.addConstraint(new cas.Equation(worldStudA[2],
+                                          cas.plus(localStudA[2], brickPos[2])));
 
-    solver.addConstraint(new cas.Equation(studBw[0],
-                                          cas.plus(studBb[0], brickPos[0])));
-    solver.addConstraint(new cas.Equation(studBw[1],
-                                          cas.plus(studBb[1], brickPos[1])));
-    solver.addConstraint(new cas.Equation(studBw[2],
-                                          cas.plus(studBb[2], brickPos[2])));
+    solver.addConstraint(new cas.Equation(worldStudB[0],
+                                          cas.plus(localStudB[0], brickPos[0])));
+    solver.addConstraint(new cas.Equation(worldStudB[1],
+                                          cas.plus(localStudB[1], brickPos[1])));
+    solver.addConstraint(new cas.Equation(worldStudB[2],
+                                          cas.plus(localStudB[2], brickPos[2])));
 
-    solver.addConstraint(new cas.Equation(holeAw[0],
-                                          cas.plus(holeAb[0], brickPos[0])));
-    solver.addConstraint(new cas.Equation(holeAw[1],
-                                          cas.plus(holeAb[1], brickPos[1])));
-    solver.addConstraint(new cas.Equation(holeAw[2],
-                                          cas.plus(holeAb[2], brickPos[2])));
+    solver.addConstraint(new cas.Equation(worldHoleA[0],
+                                          cas.plus(localHoleA[0], brickPos[0])));
+    solver.addConstraint(new cas.Equation(worldHoleA[1],
+                                          cas.plus(localHoleA[1], brickPos[1])));
+    solver.addConstraint(new cas.Equation(worldHoleA[2],
+                                          cas.plus(localHoleA[2], brickPos[2])));
 
-    solver.addConstraint(new cas.Equation(holeBw[0],
-                                          cas.plus(holeBb[0], brickPos[0])));
-    solver.addConstraint(new cas.Equation(holeBw[1],
-                                          cas.plus(holeBb[1], brickPos[1])));
-    solver.addConstraint(new cas.Equation(holeBw[2],
-                                          cas.plus(holeBb[2], brickPos[2])));
+    solver.addConstraint(new cas.Equation(worldHoleB[0],
+                                          cas.plus(localHoleB[0], brickPos[0])));
+    solver.addConstraint(new cas.Equation(worldHoleB[1],
+                                          cas.plus(localHoleB[1], brickPos[1])));
+    solver.addConstraint(new cas.Equation(worldHoleB[2],
+                                          cas.plus(localHoleB[2], brickPos[2])));
 };
 
-const testStuff = () => {
+const testConstraintSolver = () => {
     const solver = new cas.SimplexSolver();
 
     addWorldRelationToCSolver(solver, 0);
@@ -71,4 +72,4 @@ const testStuff = () => {
     console.log("Brick 2 position : ", G.bricks[2].pos);
 };
 
-testStuff();
+testConstraintSolver();
