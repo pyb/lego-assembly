@@ -10,6 +10,7 @@ const addLinkToCSolver = (solver, nBrickA, nStudA, nBrickB, nHoleB) => {
     H.equaliseTwoArrays(solver, studPos, holePos);
 };
 
+// refactor to reduce repititiveness
 const addWorldRelationToCSolver = (solver, nBrick) => {
     const brick = G.bricks[nBrick];
 
@@ -25,13 +26,14 @@ const addWorldRelationToCSolver = (solver, nBrick) => {
 
     const brickPos = brick.pos;
 
+    // stud A's X, Y, Z co-ordinates
     solver.addConstraint(new cas.Equation(worldStudA[0],
                                           cas.plus(localStudA[0], brickPos[0])));
     solver.addConstraint(new cas.Equation(worldStudA[1],
                                           cas.plus(localStudA[1], brickPos[1])));
     solver.addConstraint(new cas.Equation(worldStudA[2],
                                           cas.plus(localStudA[2], brickPos[2])));
-
+    // stud B's X, Y, Z co-ordinates
     solver.addConstraint(new cas.Equation(worldStudB[0],
                                           cas.plus(localStudB[0], brickPos[0])));
     solver.addConstraint(new cas.Equation(worldStudB[1],
@@ -39,6 +41,7 @@ const addWorldRelationToCSolver = (solver, nBrick) => {
     solver.addConstraint(new cas.Equation(worldStudB[2],
                                           cas.plus(localStudB[2], brickPos[2])));
 
+    // hole A's X, Y, Z co-ordinates
     solver.addConstraint(new cas.Equation(worldHoleA[0],
                                           cas.plus(localHoleA[0], brickPos[0])));
     solver.addConstraint(new cas.Equation(worldHoleA[1],
@@ -46,6 +49,7 @@ const addWorldRelationToCSolver = (solver, nBrick) => {
     solver.addConstraint(new cas.Equation(worldHoleA[2],
                                           cas.plus(localHoleA[2], brickPos[2])));
 
+    // hole B's X, Y, Z co-ordinates
     solver.addConstraint(new cas.Equation(worldHoleB[0],
                                           cas.plus(localHoleB[0], brickPos[0])));
     solver.addConstraint(new cas.Equation(worldHoleB[1],
