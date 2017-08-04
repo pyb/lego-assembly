@@ -1,3 +1,5 @@
+"use strict";
+
 const cas = require("cassowary");
 const H = require("./helpers");
 

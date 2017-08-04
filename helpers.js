@@ -1,3 +1,5 @@
+"use strict";
+
 // helper fn
 const cas = require("cassowary");
 const addArraysOfSameSize = (xs, ys) => {
