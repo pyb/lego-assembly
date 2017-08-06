@@ -1,3 +1,5 @@
+"use strict";
+
 // graph representation of Lego bricks
 const helpers = require("./helpers");
 
