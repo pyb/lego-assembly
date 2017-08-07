@@ -1,7 +1,7 @@
 "use strict";
 
-const brickOrigins = [[0, 0, 0], [0, 1, 0], [2, 3, 4]];
 const fs = require("fs");
+const brickOrigins = [[0, 0, 0], [0, 1, 0], [2, 3, 4]];
 const fileName = "/Users/londoner/PostRC/lego_draw/assembly.dat";
 const convertBrickToLDraw = (brick) => {
     let x = brick[0];
