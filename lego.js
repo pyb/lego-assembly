@@ -13,7 +13,7 @@ const convertBrickToLDraw = (brick) => {
 };
 
 // change name of fn
-const convertCoordinates = (point) => {
+const convertCoordinatesToLDraw = (point) => {
     const convertedPoint = [point[0] * 20,
                             point[1] * 24,
                             point[2] * 20];
@@ -21,9 +21,9 @@ const convertCoordinates = (point) => {
 };
 
 let lDrawStr =
-          convertBrickToLDraw(convertCoordinates(brickOrigins[0]))
-        + convertBrickToLDraw(convertCoordinates(brickOrigins[1]))
-        + convertBrickToLDraw(convertCoordinates(brickOrigins[2]));
+          convertBrickToLDraw(convertCoordinatesToLDraw(brickOrigins[0]))
+        + convertBrickToLDraw(convertCoordinatesToLDraw(brickOrigins[1]))
+        + convertBrickToLDraw(convertCoordinatesToLDraw(brickOrigins[2]));
 
 fs.writeFile(fileName, lDrawStr, (err) => {
     if (err) {

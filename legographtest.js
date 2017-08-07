@@ -17,7 +17,7 @@ const addWorldRelationToCSolver = (solver, nBrick) => {
 
     // process stud A and stud B
     for (let j = 0 ; j < 2 ; j+=1) {
-    // stud j's X, Y, Z co-ordinates
+        // stud j's X, Y, Z co-ordinates
         for (let i = 0 ; i < 3 ; i+=1) {
             solver.addConstraint(new cas.Equation(brick.worldStuds[j][i],
                                                   cas.plus(brick.localStuds[j][i], brickPos[i])));
