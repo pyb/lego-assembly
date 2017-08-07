@@ -25,18 +25,25 @@ const addWorldRelationToCSolver = (solver, nBrick) => {
                                                   cas.plus(brick.localHoles[j][i], brickPos[i])));
         }
     }
-}
+};
 
 const testConstraintSolver = () => {
     const solver = new cas.SimplexSolver();
+
+    addLinkToCSolver(solver, 0, 1, 1, 0);
+    addLinkToCSolver(solver, 1, 0, 2, 0);
+    addLinkToCSolver(solver, 1, 1, 2, 1);
 
     addWorldRelationToCSolver(solver, 0);
     addWorldRelationToCSolver(solver, 1);
     addWorldRelationToCSolver(solver, 2);
 
-    addLinkToCSolver(solver, 0, 1, 1, 0);
-    addLinkToCSolver(solver, 1, 0, 2, 0);
-    addLinkToCSolver(solver, 1, 1, 2, 1);
+    solver.addConstraint(new cas.Equation(G.bricks[0].pos[0],
+                                          0));
+    solver.addConstraint(new cas.Equation(G.bricks[0].pos[1],
+                                          0));
+    solver.addConstraint(new cas.Equation(G.bricks[0].pos[2],
+                                          0));
 
     solver.resolve();
 
