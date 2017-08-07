@@ -12,6 +12,7 @@ const convertBrickToLDraw = (brick) => {
     return "1 " + color + " " + x + " " + y + " " + z + " " + matrix + " " + "3004.dat\n";
 };
 
+// change name of fn
 const convertCoordinates = (point) => {
     const convertedPoint = [point[0] * 20,
                             point[1] * 24,

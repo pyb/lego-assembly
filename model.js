@@ -1,8 +1,8 @@
 "use strict";
 
-// graph representation of Lego bricks
 const helpers = require("./helpers");
 
+// graph representation of Lego bricks
 module.exports = {
     bricks: [{ ref: 0,
                pos: [0, 0, 0],
