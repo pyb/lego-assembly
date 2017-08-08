@@ -2,6 +2,7 @@
 
 const cas = require("cassowary");
 const helpers = require("./helpers");
+const dummyVar = new cas.Variable({ });
 const G = require("./model");
 
 const addLinkToCSolver = (solver, nBrickA, nStudA, nBrickB, nHoleB) => {
@@ -30,13 +31,13 @@ const addWorldRelationToCSolver = (solver, nBrick) => {
 const testConstraintSolver = () => {
     const solver = new cas.SimplexSolver();
 
-    addLinkToCSolver(solver, 0, 1, 1, 0);
-    addLinkToCSolver(solver, 1, 0, 2, 0);
-    addLinkToCSolver(solver, 1, 1, 2, 1);
-
     addWorldRelationToCSolver(solver, 0);
     addWorldRelationToCSolver(solver, 1);
     addWorldRelationToCSolver(solver, 2);
+
+    addLinkToCSolver(solver, 0, 1, 1, 0);
+    addLinkToCSolver(solver, 1, 0, 2, 0);
+    addLinkToCSolver(solver, 1, 1, 2, 1);
 
     solver.addConstraint(new cas.Equation(G.bricks[0].pos[0],
                                           0));
