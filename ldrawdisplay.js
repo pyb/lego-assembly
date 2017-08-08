@@ -21,7 +21,7 @@ const convertBrickToLDraw = (point) => {
 };
 
 let lDrawStr =
-          convertBrickToLDraw(convertCoordinatesToLDraw(brickOrigins[0]))
+        convertBrickToLDraw(convertCoordinatesToLDraw(brickOrigins[0]))
         + convertBrickToLDraw(convertCoordinatesToLDraw(brickOrigins[1]))
         + convertBrickToLDraw(convertCoordinatesToLDraw(brickOrigins[2]));
 

@@ -38,9 +38,13 @@ const testConstraintSolver = () => {
     addWorldRelationToCSolver(solver, 1);
     addWorldRelationToCSolver(solver, 2);
 
-    addLinkToCSolver(solver, 0, 1, 1, 0);
-    addLinkToCSolver(solver, 1, 0, 2, 0);
-    addLinkToCSolver(solver, 1, 1, 2, 1);
+//    addLinkToCSolver(solver, 0, 1, 1, 0);
+//    addLinkToCSolver(solver, 1, 0, 2, 0);
+//    addLinkToCSolver(solver, 1, 1, 2, 1);
+
+    addLinkToCSolver(solver, 0, 0, 1, 0);
+    addLinkToCSolver(solver, 0, 1, 1, 1);
+    addLinkToCSolver(solver, 1, 1, 2, 0);
 
     solver.addConstraint(new cas.Equation(G.bricks[0].pos[0],
                                           0));
