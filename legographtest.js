@@ -6,6 +6,7 @@ const helpers = require("./helpers");
 const lDraw = require("./ldrawdisplay.js");
 const fs = require("fs");
 const G = require("./model");
+let filePath;
 
 const addLinkToCSolver = (solver, nBrickA, nStudA, nBrickB, nHoleB) => {
     const studPos = G.bricks[nBrickA].worldStuds[nStudA];
@@ -59,4 +60,16 @@ const brickStrings = brickOrigins.map((p) => {
     return lDraw.convertBrickToLDraw(lDraw.convertCoordinatesToLDraw(p));
 });
 
-console.log("brick lDraw strings: ", brickStrings);
+if (process.argv.length === 2) {
+    filePath = "/Users/londoner/PostRC/lego_draw/assembly.dat";
+} else {
+    filePath = process.argv[2];
+}
+
+const lDrawFileContents = brickStrings.reduce((acc, s) => acc.concat(s), "");
+
+fs.writeFile(filePath, lDrawFileContents, (err) => {
+    if (err) {
+        console.log(err);
+    }
+});
