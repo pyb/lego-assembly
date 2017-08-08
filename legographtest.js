@@ -1,8 +1,10 @@
 "use strict";
 
 const cas = require("cassowary");
+const dummyVar = new cas.Variable({ }); // workaround as cas generates buggy variables
 const helpers = require("./helpers");
-const dummyVar = new cas.Variable({ });
+const lDraw = require("./ldrawdisplay.js");
+const fs = require("fs");
 const G = require("./model");
 
 const addLinkToCSolver = (solver, nBrickA, nStudA, nBrickB, nHoleB) => {
@@ -45,11 +47,16 @@ const testConstraintSolver = () => {
                                           0));
     solver.addConstraint(new cas.Equation(G.bricks[0].pos[2],
                                           0));
-
     solver.resolve();
-
-    console.log("Brick 0 position : ", G.bricks[0].pos);
-    console.log("Brick 1 position : ", G.bricks[1].pos);
-    console.log("Brick 2 position : ", G.bricks[2].pos);
 };
 testConstraintSolver();
+
+// get nBrick positions from G.bricks
+const brickOrigins = G.bricks.map((b) => b.pos.map((Var) => Var.value));
+
+// [[x1, y1, z1], [x2, y2, z2], [x3, y3, z3]] -> lDraw
+const brickStrings = brickOrigins.map((p) => {
+    return lDraw.convertBrickToLDraw(lDraw.convertCoordinatesToLDraw(p));
+});
+
+console.log("brick lDraw strings: ", brickStrings);
