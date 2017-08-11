@@ -1,10 +1,8 @@
 import numpy as np
 import scipy.optimize
 
-alpha_value = 1.0
-
 def F(x):
-    alpha = alpha_value
+    alpha = 1.0
     beta = x[0]
     gamma = x[1]
     f1 = 6 * np.cos(alpha) + 10 * np.cos(gamma) - 6 * np.cos(beta) - 8
