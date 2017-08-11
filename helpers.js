@@ -16,7 +16,6 @@ const createCVarPos = () => {
 const equaliseTwoArrays = (solver, xs, ys) => {
     xs.map((_, i) => {
         const eq = new cas.Equation(xs[i], ys[i]);
-         console.log("args to equalise arr: " + " xs: " + xs[i] + " ys: " + ys[i]);
         solver.addConstraint(eq);
     });
 };
