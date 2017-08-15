@@ -48,12 +48,23 @@ def testConstraintSolver():
         relations.append(fn)
     print('counter :', h.counter)
     print('relations : ', len(relations))
-    # V = scipy.optimize.broyden1(F, [0] * h.counter, f_tol=1e-14)
-    V = scipy.optimize.broyden1(F, [0] * len(relations), f_tol=1e-5)
-    Vround = map(
+    Values = scipy.optimize.broyden1(F, [0] * len(relations), f_tol=1e-5)
+    Values_rounded = list(map(
         lambda x: round(x, 3),
-        V
-    )
-    print(list(Vround))
+        Values
+    ))
+    print(Values_rounded)
+
+    brick1pos_var = m.bricks[1]['pos']
+    brick1posx_val =  Values_rounded[brick1pos_var[0].get_index()]
+    brick1posy_val =  Values_rounded[brick1pos_var[1].get_index()]
+    brick1posz_val =  Values_rounded[brick1pos_var[2].get_index()]
+    print('brick one position: ', [brick1posx_val, brick1posy_val, brick1posz_val])
+
+    brick2pos_var = m.bricks[2]['pos']
+    brick2posx_val =  Values_rounded[brick2pos_var[0].get_index()]
+    brick2posy_val =  Values_rounded[brick2pos_var[1].get_index()]
+    brick2posz_val =  Values_rounded[brick2pos_var[2].get_index()]
+    print('brick two position: ', [brick2posx_val, brick2posy_val, brick2posz_val])
 
 testConstraintSolver()
