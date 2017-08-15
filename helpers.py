@@ -17,13 +17,12 @@ def createVarPos():
     z = Variable()
     return [x, y, z]
 
-def equaliseTwoVars(x, y, relations):
+def equaliseTwoVars(x, y):
     fn_str = 'lambda V: ' + x.to_string() + ' - ( ' + y.to_string() + ')'
     print (fn_str)
-    fn = eval(fn_str)
-    relations.append(fn)
+    return eval(fn_str)
+   
 
 def equaliseTwoLists(xs, ys, relations):
-    l = len(xs)
-    for i in range(0, l):
-        equaliseTwoVars(xs[i], ys[i], relations)
+    relations.extend(equaliseTwoVars(x, y) for x, y in zip(xs, ys))
+   
