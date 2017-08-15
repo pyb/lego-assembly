@@ -49,7 +49,11 @@ def testConstraintSolver():
     print('counter :', h.counter)
     print('relations : ', len(relations))
     # V = scipy.optimize.broyden1(F, [0] * h.counter, f_tol=1e-14)
-    V = scipy.optimize.broyden1(F, [0] * len(relations), f_tol=1e-14)
-    print(V)
+    V = scipy.optimize.broyden1(F, [0] * len(relations), f_tol=1e-5)
+    Vround = map(
+        lambda x: round(x, 3),
+        V
+    )
+    print(list(Vround))
 
 testConstraintSolver()
