@@ -18,7 +18,8 @@ def createVarPos():
     return [x, y, z]
 
 def equaliseTwoVars(x, y, relations):
-    fn_str = 'lambda V: ' + x.to_string() + ' - ' + y.to_string()
+    fn_str = 'lambda V: ' + x.to_string() + ' - ( ' + y.to_string() + ')'
+    print (fn_str)
     fn = eval(fn_str)
     relations.append(fn)
 
