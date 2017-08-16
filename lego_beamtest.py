@@ -2,6 +2,7 @@ import numpy as np
 import scipy.optimize
 import helpers as h
 import new_model as nm
+import ldraw_display as ld
 
 relations = []
 beam0_alpha = 1.0
@@ -89,10 +90,27 @@ def testConstraintSolver():
     print('Variables : ', h.counter)
 
     values = scipy.optimize.broyden2(F, [0] * len(relations), f_tol=1e-5)
-    print('Values from SciPy solver : ', values)
+    # print('Values from SciPy solver : ', values)
 
     values_rounded = [round(v, 3) for v in values]
+
     for var in h.variables:
-        var.value = values[var.get_index()]
+        var.value = values_rounded[var.get_index()]
+
+    for i in range(0, 4):
+        beamPos = nm.beams[i]['pos']
+        angle = nm.beams[i]['angle']
+        print ('beam ', i, ' @ ', beamPos[0].value, ' ', beamPos[1].value, ' ', beamPos[2].value, ' - angle ', angle.value)
+
+    ldraw_str = (
+        ld.convert_beam_to_ldraw(nm.beams[0]) +
+        ld.convert_beam_to_ldraw(nm.beams[1]) +
+        ld.convert_beam_to_ldraw(nm.beams[2]) +
+        ld.convert_beam_to_ldraw(nm.beams[3])
+        )
+
+    file = open('beams.dat', "w")
+    file.write(ldraw_str)
+    file.close()
 
 testConstraintSolver()
