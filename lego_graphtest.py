@@ -40,7 +40,7 @@ def testConstraintSolver():
     addLinkToSolver(1, 0, 2, 0)
     addLinkToSolver(1, 1, 2, 1)
 
-    # put first bric k into [0, 0, 0]
+    # put first brick into [0, 0, 0]
     for i in range(0, 3):
         fn_str = 'lambda V: ' + m.bricks[0]['pos'][i].to_string()
         print (fn_str)
