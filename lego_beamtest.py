@@ -35,7 +35,7 @@ def addWorldRelationToSolver(nBeam, relations):
         fn = eval(fn_str)
         relations.append(fn)
 
-        fn_str = 'lambda V: {ybeam} + {length}*np.sin({alpha}) - {yhole}'.format(
+        fn_str = 'lambda V: {ybeam} - {length}*np.sin({alpha}) - {yhole}'.format(
             alpha=beam['angle'].to_string(),
             ybeam = beamPos[1].to_string(),
             length = j,
