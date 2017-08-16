@@ -23,6 +23,7 @@ tramp
 /eshell/history
 /eshell/lastdir
 .tern-port
+.projectile
 *.dat
 !beameleven.dat
 !beamseven.dat
