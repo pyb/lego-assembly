@@ -14,5 +14,5 @@ def createAbeam(ref, filePath, nHoles):
 
 beams = [createAbeam(0, 'beamseven.dat', 7),
          createAbeam(1, 'beameleven.dat', 11),
-         createAbeam(2, 'beameleven.dat', 7),
+         createAbeam(2, 'beamseven.dat', 7),
          createAbeam(3, 'beameleven.dat', 11)]

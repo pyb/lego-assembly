@@ -8,7 +8,6 @@ class Variable:
         counter += 1
     def get_index(self):
         return self._index
-
     def to_string(self):
         return 'V[ ' + str(self._index) + ']'
 
