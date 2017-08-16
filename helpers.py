@@ -1,4 +1,5 @@
 counter = 0
+variables = []
 
 class Variable:
     def __init__(self):
@@ -11,10 +12,15 @@ class Variable:
     def to_string(self):
         return 'V[ ' + str(self._index) + ']'
 
+def createVariableInstance():
+    v = Variable()
+    variables.append(v)
+    return v
+
 def createVarPos():
-    x = Variable()
-    y = Variable()
-    z = Variable()
+    x = createVariableInstance()
+    y = createVariableInstance()
+    z = createVariableInstance()
     return [x, y, z]
 
 def equaliseTwoVars(x, y, relations):

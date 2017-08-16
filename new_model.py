@@ -6,7 +6,7 @@ def createAbeam(ref, filePath, nHoles):
         'filePath': filePath,
         'nHoles': nHoles,
         'pos': h.createVarPos(),
-        'angle': h.Variable(),
+        'angle': h.createVariableInstance(),
         'localHoles': [[i, 0, 0] for i in range(nHoles)],
         'worldHoles': [h.createVarPos() for i in range(nHoles)]
     }
