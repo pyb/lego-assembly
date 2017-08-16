@@ -81,14 +81,18 @@ def testConstraintSolver():
     fn_str = 'lambda V: {angle} - {alpha} '.format(
         angle =  nm.beams[0]['angle'].to_string(),
         alpha = beam0_alpha
-    )
+        )
     fn = eval(fn_str)
     relations.append(fn)
 
     print('relations : ', len(relations))
     print('Variables : ', h.counter)
 
-    Values = scipy.optimize.broyden1(F, [0] * len(relations), f_tol=1e-5)
-    print('Values from SciPy solver : ', Values)
+    values = scipy.optimize.broyden2(F, [0] * len(relations), f_tol=1e-5)
+    print('Values from SciPy solver : ', values)
+
+    values_rounded = [round(v, 3) for v in values]
+    for var in h.variables:
+        var.value = values[var.get_index()]
 
 testConstraintSolver()
