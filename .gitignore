@@ -24,6 +24,8 @@ tramp
 /eshell/lastdir
 .tern-port
 *.dat
+!beameleven.dat
+!beamseven.dat
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
