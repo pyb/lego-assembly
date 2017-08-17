@@ -26,12 +26,13 @@ def addWorldRelationToSolver(nBeam, relations):
         )
         fn = eval(fn_str)
         relations.append(fn)
-
+        print(fn_str)
         fn_str = 'lambda V: {xbeam} + {length}*np.cos({alpha}) - {xhole}'.format(
             alpha=beam['angle'].to_string(),
             xbeam = beamPos[0].to_string(),
             length = j,
             xhole = worldHole[0].to_string())
+        print(fn_str)
         fn = eval(fn_str)
         relations.append(fn)
 
@@ -40,6 +41,7 @@ def addWorldRelationToSolver(nBeam, relations):
             ybeam = beamPos[1].to_string(),
             length = j,
             yhole = worldHole[1].to_string())
+        print(fn_str)
         fn = eval(fn_str)
         relations.append(fn)
 
