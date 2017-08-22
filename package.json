@@ -1,5 +1,5 @@
 {
-  "name": "lego_draw",
+  "name": "lego-assembly",
   "version": "1.0.0",
   "description": "experiment with lego assembly",
   "main": "lego.js",
