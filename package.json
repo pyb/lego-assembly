@@ -6,9 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "View Systems Ltd",
+  "license": "GPL v3",
   "dependencies": {
-    "cassowary": "0.0.2"
+    "cassowary": "0.0.2",
+    "ffi": "^2.2.0",
+    "ref": "^1.3.4",
+    "ref-array": "^1.2.0"
   }
 }
