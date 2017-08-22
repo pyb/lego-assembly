@@ -1,3 +1,5 @@
+"use strict";
+
 const h = require('./helpers2');
 
 // Relation object contains a function, as well as all the variables involved (name and location in the model and / or in the master list of all variables)
@@ -11,11 +13,10 @@ class Variable {
                 name=undefined,
                 constant=undefined) {
         this.index = index;
-        this.value = value; // filled after solving
+        this.value = value; // filled after solving with general non-linear solver
         this.name = name;
         this.constant = constant;
-        if (!constant)
-        {
+        if (!constant) {
             this.index = nextIndex();
         }
         // ....

@@ -1,7 +1,8 @@
-let makeCounter = () => {
-    var refCounter = 0;
+"use strict";
 
-    let nextRef = () => {
+const makeCounter = () => {
+    let refCounter = 0;
+    const nextRef = () => {
         let ref = refCounter;
         refCounter += 1;
         return ref;
