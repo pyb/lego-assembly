@@ -1,4 +1,5 @@
 const h = require('./helpers2');
+const c = require('./compute');
 
 let newRef = h.makeCounter();
 
@@ -15,6 +16,16 @@ class Connector {
 
 class Hole extends Connector {
 
+};
+
+class Location {
+    constructor( x=new c.Variable(),
+                 y=new c.Variable(),
+                 z=new c.Variable() ) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    };
 };
 
 class Brick {
