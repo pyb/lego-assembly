@@ -5,24 +5,7 @@ const c = require('./compute');
 
 let newRef = h.makeCounter();
 
-class Connector {
-    constructor (ref=newRef(),
-                 pos=undefined) {
-        this.links = []; // list of connectors
-        this.pos = pos;
-        this.ref = ref;
-    };
-    get bound() {
-        return !(this.links.length === 0);
-    };
-};
-
-// what are the generic connectors and their attributes?
-class Hole extends Connector {
-
-};
-
-class Location {
+class Point {
     constructor(x=new c.Variable(),
                 y=new c.Variable(),
                 z=new c.Variable()
