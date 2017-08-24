@@ -17,13 +17,28 @@ class Variable {
         this.value = value; // filled after solving with general non-linear solver
         this.name = name;
         this.constant = constant;
-        if (!constant) {
+        if (!constant && !this.index) {
             this.index = nextIndex();
         }
         // ....
     };
 };
 
+// lookUp utility
+const lookUp = (variable, env) => {
+    let value;
+    let index;
+    if (variable.constant !== undefined) {
+        value = variable.constant;
+    }
+    else {
+        index = variable.index;
+        value = env[index];
+    }
+    return value;
+};
+
 module.exports = {
-    Variable: Variable
+    Variable: Variable,
+    lookUp: lookUp
 };
