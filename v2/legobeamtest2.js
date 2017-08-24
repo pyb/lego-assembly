@@ -1,73 +1,30 @@
 "use strict";
 
-const m = require('model2');
-const h = require('helpers2');
-const d = require('display2');
-
-var model = new Model();
+const m = require('./model2');
+const h = require('./helpers2');
+const d = require('./display2');
+const c = require('./compute');
 
 let functions_to_solve = [];
 
-// beam A and beam B have the same Z
-// assume beamA, beamB are Brick instances.
-let addZRelation = (beamA, beamB) => {
-    const zA = beamA.pos.z; // Variable
-    const zB = beamB.pos.z; // Variable
+// let extractZaAndZb = (env) => {
+//     let vZa = c.lookUp(zA, env);
+//     let vZb = c.lookUp(zB, env);
+//     return [vZa, vZb];
+// };
 
-    let f = (vzA, vzB) => vzA - vzB;
+const generateExtractFn = (...variables) =>
+          (env) =>
+              variables.map((v) =>
+                            c.lookUp(v, env));
 
-    let extract =
-            (V) => {
-                let i, vzA, vzB;
+let addEqualZconstraint = (beamA, beamB) => {
+    const zA = beamA.pos.z;
+    const zB = beamB.pos.z;
 
-                if (zA.constant !== undefined) {
-                    vzA = zA.constant;
-                }
-                else {
-                    i = zA.index;
-                    vzA = V[i];
-                }
+    const f = (vZa, vZb) => vZa - vZb;
 
-                if (zB.constant !== undefined) {
-                    vzB = zB.constant;
-                }
-                else {
-                    i = zB.index;
-                    vzB = V[i];
-                }
-                return [vzA, vzB];
-            };
+    const extractZaAndZb = generateExtractFn(zA, zB);
+    functions_to_solve.push((env) => f(...extractZaAndZb(env)));
 };
 
-
-
-
-
-
-
-
-
-
-// model.remove(beam); // destroy all connections as well
-
-// model.add(
-//     new Beam(7, ref=1234),
-//     //
-//          );
-
-// beam1.connect(beam2, beam1coord); // incomplete
-// beam2.connect(beam1, beam2coord); // now complete
-
-
-// // Utilities aka helpers
-
-// particular_beam = find(ref, model);
-
-
-
-// connector1 = beam1.holes[3];
-// connector2 = beam4.holes[0];
-// connect(connector1, connector2);
-
-
-// flag = is_complete(model); //  Are there enough known variables to resolve the positions ?
