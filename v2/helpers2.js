@@ -10,6 +10,9 @@ const makeCounter = () => {
     return nextRef;
 };
 
+const range = (length) => [...Array(length).keys()];
+
 module.exports = {
-    makeCounter: makeCounter
+    makeCounter: makeCounter,
+    range: range
 };
