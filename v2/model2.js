@@ -16,25 +16,58 @@ class Point {
     };
 };
 
-class Block {
-    constructor(ref=newRef(),
-                pos=undefined,
-                angle=undefined) {
+// connectorType is always 'hole'
+class Connector {
+    constructor (connectorType,
+                 brick,
+                 localPos,
+                 worldPos=new Point()
+                ) {
+        this.targets = []; // list of connectors that Connector goes into
+        this.localPos = localPos,
+        this.worldPos = worldPos,
+        this.type = connectorType;
+        this.brick = brick;
+    };
+    get bound() {
+        return !(this.targets.length === 0);
+    };
+};
+
+class Brick {
+    constructor(ref=newRef()) {
         this.ref = ref;
-        this.pos = pos;
-        this.connectors = [];
+        this.angle = new c.Variable();
+        this.pos = new Point();
+        this.connectors = this.generateConnectors();
+    };
+}
+
+class Beam extends Brick {
+    constructor(length) {
+        this.length = length;
+    }
+    generateConnectors() {
+        const iter = range(this.length);
+        return iter.map((i) => {
+            const p = new Point();
+            p.x.constant = i;
+            p.y.constant = 0;
+            p.z.constant = 0;
+            return new Connector("hole", this, p);
+        });
     };
 }
 
 // build up model in terms of parts
 let model = {
-    parts: []
+    bricks: [], // =>
+    connectors: []
 };
 
 module.exports = {
     newRef: newRef,
-    Block: Block,
-    Hole: Hole,
+    Brick: Brick,
     Connector: Connector,
     model: model
 };
