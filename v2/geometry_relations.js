@@ -47,7 +47,7 @@ const fixBeamAngle = (beam, angleValue) => {
     functions_to_solve.push((env) => f(...extractAngle(env)));
 };
 
-const linkConnectorectors = (connector1, connector2) => {
+const linkConnectors = (connector1, connector2) => {
     connector1.targets = [connector2];
     connector2.targets = [connector1];
     makeVariablesEqual(connector1.worldPos.x, connector2.worldPos.x);
