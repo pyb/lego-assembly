@@ -16,6 +16,14 @@ class Point {
     };
 };
 
+const makeConstantPoint = (X, Y, Z) => {
+    const p = new Point();
+    p.x.constant = X;
+    p.y.constant = Y;
+    p.z.constant = Z;
+    return p;
+};
+
 // connectorType is always 'hole'
 class Connector {
     constructor (connectorType,
@@ -50,10 +58,7 @@ class Beam extends Brick {
     generateConnectors() {
         const iter = range(this.length);
         return iter.map((i) => {
-            const p = new Point();
-            p.x.constant = i;
-            p.y.constant = 0;
-            p.z.constant = 0;
+            const p = makeConstantPoint(i, 0, 0);
             return new Connector("hole", this, p);
         });
     };
