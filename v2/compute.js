@@ -33,7 +33,8 @@ class Variable {
 const lookUp = (variable, env) => {
     let value;
     let index;
-    if (variable.constant !== undefined) {
+    console.log('looking up ', variable);
+    if (variable.constant) {
         value = variable.constant;
     }
     else {

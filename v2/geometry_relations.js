@@ -1,13 +1,18 @@
 "use strict";
 
-const m = require('./model2.js');
+const m = require('./model2');
+const c = require('./compute');
 
 let functions_to_solve = [];
 
-const generateExtractFn = (...variables) =>
-          (env) =>
-              variables.map((v) =>
-                            c.lookUp(v, env));
+const generateExtractFn = (...variables) => {
+    console.log('variables : ', variables);
+    return (env) =>
+        variables.map((v) => {
+            console.log( 'v ' + v);
+            c.lookUp(v, env);
+        });
+};
 
 const makeVariablesEqual = (v1, v2) => {
     const f = (a, b) => a - b;

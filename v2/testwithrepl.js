@@ -4,3 +4,4 @@ myrepl.context['m'] = require('./model2');
 myrepl.context['c'] = require('./compute');
 myrepl.context['l'] = require('./legobeamtest2');
 myrepl.context['g'] = require('./geometry_relations');
+myrepl.context['s'] = require('../lib/solverwrappertest');
