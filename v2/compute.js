@@ -29,20 +29,7 @@ class Variable {
     };
 };
 
-// lookUp utility
-const lookUp = (variable, env) => {
-    let value;
-    let index;
-    console.log('looking up ', variable);
-    if (variable.constant) {
-        value = variable.constant;
-    }
-    else {
-        index = variable.index;
-        value = env[index];
-    }
-    return value;
-};
+const lookUp = (variable, env) => variable.constant || env[variable.index];
 
 module.exports = {
     Variable: Variable,
