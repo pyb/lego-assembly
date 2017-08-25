@@ -47,6 +47,7 @@ class Brick {
         this.ref = ref;
         let name = 'angle ' + ref;
         this.angle = new c.Variable(name, undefined, undefined, false);
+	name = 'brick pos ' + ref;
         this.pos = new Point(name, false);
     };
 }

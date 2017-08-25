@@ -32,14 +32,14 @@ class Variable {
 // lookUp utility
 const lookUp = (variable, env) => {
     let value;
-    let index;
-    console.log('looking up ', variable);
-    if (variable.constant) {
-        value = variable.constant;
+    if ((variable.constant === undefined) ||
+	(variable.constant === false))
+    {
+        let index = variable.index;
+        value = env[index];
     }
     else {
-        index = variable.index;
-        value = env[index];
+	value = variable.constant;
     }
     return value;
 };
