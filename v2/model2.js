@@ -73,6 +73,7 @@ let model = {
 module.exports = {
     newRef: newRef,
     Brick: Brick,
+    Beam: Beam,
     Connector: Connector,
     model: model
 };
