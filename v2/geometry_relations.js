@@ -1,3 +1,7 @@
+"use strict";
+
+const m = require('./model2.js');
+
 let functions_to_solve = [];
 
 const generateExtractFn = (...variables) =>
@@ -31,7 +35,7 @@ const addZplus1constraint = (beamA, beamB) => {
 
 // beam position = [3, 3, 0]
 const fixBeamPosition = (beam, [X, Y, Z]) => {
-    const p = makeConstantPoint(X, Y, Z);
+    const p = m.makeConstantPoint(X, Y, Z);
     makeVariablesEqual(beam.x, p.x);
     makeVariablesEqual(beam.y, p.y);
     makeVariablesEqual(beam.z, p.z);
@@ -70,11 +74,12 @@ const relateLocalToWorld = (connector) => {
     functions_to_solve.push((env) => f3(...extractXYVariables(env)));
 };
 
-Module.exports = {
+module.exports = {
     relateLocalToWorld: relateLocalToWorld,
     addEqualZconstraint: addEqualZconstraint,
     addZplus1constraint: addZplus1constraint,
     fixBeamPosition: fixBeamPosition,
-    linkConnectorectors: linkConnectorectors,
-    fixBeamAngle: fixBeamAngle
+    linkConnectors: linkConnectors,
+    fixBeamAngle: fixBeamAngle,
+    functions_to_solve: functions_to_solve
 };

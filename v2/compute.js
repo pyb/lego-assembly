@@ -40,5 +40,8 @@ const lookUp = (variable, env) => {
 
 module.exports = {
     Variable: Variable,
-    lookUp: lookUp
+    lookUp: lookUp,
+    nextIndex: nextIndex,
+    variables: variables,
+    constants: constants
 };

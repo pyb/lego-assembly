@@ -75,5 +75,6 @@ module.exports = {
     Brick: Brick,
     Beam: Beam,
     Connector: Connector,
-    model: model
+    model: model,
+    makeConstantPoint: makeConstantPoint
 };
