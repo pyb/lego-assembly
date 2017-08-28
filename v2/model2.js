@@ -69,8 +69,8 @@ class Beam extends Brick {
 
 // build up model in terms of parts
 let model = {
-    bricks: [], // =>
-    connectors: []
+    bricks: [], // just used for display atm
+    connectors: [] // unused
 };
 
 module.exports = {

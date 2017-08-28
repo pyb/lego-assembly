@@ -3,8 +3,10 @@
 const m = require('./model2');
 const h = require('./helpers2');
 const c = require('./compute');
+const d = require('./display');
 const g = require('./geometry_relations');
 const s = require('../lib/solverwrappertest');
+const fs = require("fs");
 
 let beamA;
 let beamB;
@@ -16,25 +18,26 @@ const printFunctions = () => {
 let counter = 0;
 
 const buildModel = () => {
-    beamA = new m.Beam(2);
-//    beamB = new m.Beam(5);
+    beamA = new m.Beam(3);
+    beamB = new m.Beam(3);
+    m.model.bricks = [beamA, beamB];
 
-//    g.addZplus1constraint(beamA, beamB);
+    g.addZplus1constraint(beamA, beamB);
     g.fixBeamPosition(beamA, [0, 0, 0]);
-    g.fixBeamAngle(beamA, 0.0);
-//    g.fixBeamAngle(beamB, 2.0);
+    g.fixBeamAngle(beamA, 1.0);
+//    g.fixBeamPosition(beamB, [1, 1, 1]);
+    g.fixBeamAngle(beamB, 2.0);
 
-//    g.linkConnectors(beamA.connectors[0], beamB.connectors[1]);
+    g.linkConnectors(beamA.connectors[0], beamB.connectors[1]);
 
     beamA.connectors.map(g.relateLocalToWorld);
-//    beamB.connectors.map(g.relateLocalToWorld);
+    beamB.connectors.map(g.relateLocalToWorld);
 
     //    printFunctions();
     const solver = s.create_solver();
     const Nvars = c.variables.length;
     const master_function = (...env) => {
 	counter += 1;
-//	console.log("master function called " + counter + " times");
         return g.functions_to_solve.map((f) => {
 	    let retval = f(env);
 	    return retval;
@@ -44,14 +47,28 @@ const buildModel = () => {
     const a = s.solve(solver);
 
     const results = s.copy_arraytype(a);
-    console.log(results);
     for (let i  = 0 ; i < Nvars ; i++)
     {
 	c.variables[i].value = results[i];
     }
 };
 
+const convertModelToLDraw = (model) => {
+    return (model.bricks.map(d.convertBeamToLDraw)).join(' ');
+};
+
+const save = (fileName) => {
+    const lDrawStr = convertModelToLDraw(m.model);
+    fs.writeFile(fileName, lDrawStr, (err) => {
+	if (err) {
+            console.log(err);
+	}
+    });
+
+};
+
 buildModel();
+save('./beam_assembly.dat');
 
 module.exports = {
     printFunctions: printFunctions,
