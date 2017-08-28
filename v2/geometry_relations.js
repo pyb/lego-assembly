@@ -5,18 +5,16 @@ const c = require('./compute');
 
 let functions_to_solve = [];
 
-const generateExtractFn = (...variables) => {
-    console.log('variables : ', variables);
+const generateExtractFn = (variables) => {
     return (env) =>
         variables.map((v) => {
-            console.log( 'v ' + v);
-            c.lookUp(v, env);
+            return c.lookUp(v, env);
         });
 };
 
 const makeVariablesEqual = (v1, v2) => {
     const f = (a, b) => a - b;
-    const extractv1Andv2 = generateExtractFn(v1, v2);
+    const extractv1Andv2 = generateExtractFn([v1, v2]);
     functions_to_solve.push((env) => f(...extractv1Andv2(env)));
 };
 
@@ -34,21 +32,21 @@ const addZplus1constraint = (beamA, beamB) => {
 
     const f = (vZa, vZb) => vZa - vZb - 1;
 
-    const extractZaAndZb = generateExtractFn(zA, zB);
+    const extractZaAndZb = generateExtractFn([zA, zB]);
     functions_to_solve.push((env) => f(...extractZaAndZb(env)));
 };
 
 // beam position = [3, 3, 0]
 const fixBeamPosition = (beam, [X, Y, Z]) => {
     const p = m.makeConstantPoint(X, Y, Z);
-    makeVariablesEqual(beam.x, p.x);
-    makeVariablesEqual(beam.y, p.y);
-    makeVariablesEqual(beam.z, p.z);
+    makeVariablesEqual(beam.pos.x, p.x);
+    makeVariablesEqual(beam.pos.y, p.y);
+    makeVariablesEqual(beam.pos.z, p.z);
 };
 
 const fixBeamAngle = (beam, angleValue) => {
     const f = (v) => v - angleValue;
-    const extractAngle = generateExtractFn(beam.angle);
+    const extractAngle = generateExtractFn([beam.angle]);
     functions_to_solve.push((env) => f(...extractAngle(env)));
 };
 
@@ -66,10 +64,10 @@ const relateLocalToWorld = (connector) => {
     const { x: xWorld, y: yWorld, z: zWorld } = connector.worldPos;
 
     const f1 = (zWorld, zLocal, zBeam) => zBeam + zLocal - zWorld;
-    const extractZs = generateExtractFn(zWorld, zLocal, zBeam);
+    const extractZs = generateExtractFn([zWorld, zLocal, zBeam]);
     functions_to_solve.push((env) => f1(...extractZs(env)));
 
-    const extractXYVariables = generateExtractFn(xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle);
+    const extractXYVariables = generateExtractFn([xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle]);
 
     const f2 = (xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle) => (xWorld - xBeam) * Math.cos(angle) + (yWorld - yBeam) * Math.sin(angle) - xLocal;
 
