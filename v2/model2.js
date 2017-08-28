@@ -3,7 +3,7 @@
 const h = require('./helpers2');
 const c = require('./compute');
 
-let newRef = h.makeCounter();
+const newRef = h.makeCounter();
 
 class Point {
     constructor(name=undefined, constant=undefined) {
@@ -47,7 +47,7 @@ class Brick {
         this.ref = ref;
         let name = 'angle ' + ref;
         this.angle = new c.Variable(name, undefined, undefined, false);
-	name = 'brick pos ' + ref;
+        name = 'brick pos ' + ref;
         this.pos = new Point(name, false);
     };
 }
@@ -62,13 +62,13 @@ class Beam extends Brick {
         const iter = h.range(this.length);
         return iter.map((i) => {
             const p = makeConstantPoint(i, 0, 0);
-            return new Connector("hole", this, p);
+            return new Connector("hole", this, p, undefined);
         });
     };
 }
 
 // build up model in terms of parts
-let model = {
+const model = {
     bricks: [], // just used for display atm
     connectors: [] // unused
 };
