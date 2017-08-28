@@ -16,7 +16,7 @@ class Variable {
                 index=undefined,
                 constant=undefined) {
         this.index = index;
-        this.value = value; // filled after solving with general non-linear solver
+        this.value = value;
         this.name = name;
         this.constant = constant;
         if (!constant && !this.index) {
@@ -31,6 +31,7 @@ class Variable {
     };
 };
 
+// lookUp :: ([variable, env]) -> float
 const lookUp = (variable, env) => variable.constant || env[variable.index];
 
 module.exports = {
