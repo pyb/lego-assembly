@@ -25,7 +25,6 @@ const buildModel = () => {
     g.addZplus1constraint(beamA, beamB);
     g.fixBeamPosition(beamA, [0, 0, 0]);
     g.fixBeamAngle(beamA, 1.0);
-//    g.fixBeamPosition(beamB, [1, 1, 1]);
     g.fixBeamAngle(beamB, 2.0);
 
     g.linkConnectors(beamA.connectors[0], beamB.connectors[1]);
@@ -33,38 +32,33 @@ const buildModel = () => {
     beamA.connectors.map(g.relateLocalToWorld);
     beamB.connectors.map(g.relateLocalToWorld);
 
-    //    printFunctions();
     const solver = s.create_solver();
     const Nvars = c.variables.length;
     const master_function = (...env) => {
-	counter += 1;
+        counter += 1;
         return g.functions_to_solve.map((f) => {
-	    let retval = f(env);
-	    return retval;
-	});
+            let retval = f(env);
+            return retval;
+	      });
     };
     s.init_solver(solver, master_function, Nvars);
     const a = s.solve(solver);
 
     const results = s.copy_arraytype(a);
-    for (let i  = 0 ; i < Nvars ; i++)
-    {
-	c.variables[i].value = results[i];
+    for (let i  = 0 ; i < Nvars ; i++) {
+        c.variables[i].value = results[i];
     }
 };
 
-const convertModelToLDraw = (model) => {
-    return (model.bricks.map(d.convertBeamToLDraw)).join(' ');
-};
+const convertModelToLDraw = (model) => (model.bricks.map(d.convertBeamToLDraw)).join(' ');
 
 const save = (fileName) => {
     const lDrawStr = convertModelToLDraw(m.model);
     fs.writeFile(fileName, lDrawStr, (err) => {
-	if (err) {
+        if (err) {
             console.log(err);
-	}
+        }
     });
-
 };
 
 buildModel();

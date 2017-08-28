@@ -58,14 +58,11 @@ const relateLocalToWorld = (connector) => {
     const extractZs = generateExtractFn([zWorld, zLocal, zBeam]);
     functions_to_solve.push((env) => f1(...extractZs(env)));
 
-    const extractXYVariables = generateExtractFn([xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle]);
-
+    const extractXYvariables = generateExtractFn([xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle]);
     const f2 = (xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle) => (xWorld - xBeam) * Math.cos(angle) + (yWorld - yBeam) * Math.sin(angle) - xLocal;
-
     const f3 = (xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle) => -(xWorld - xBeam) * Math.sin(angle) + (yWorld - yBeam) * Math.cos(angle) - yLocal;
-
-    functions_to_solve.push((env) => f2(...extractXYVariables(env)));
-    functions_to_solve.push((env) => f3(...extractXYVariables(env)));
+    functions_to_solve.push((env) => f2(...extractXYvariables(env)));
+    functions_to_solve.push((env) => f3(...extractXYvariables(env)));
 };
 
 module.exports = {
