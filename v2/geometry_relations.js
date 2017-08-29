@@ -6,10 +6,12 @@ const c = require('./compute');
 let functions_to_solve = [];
 
 const generateExtractFn = (variables) => {
-    return (env) =>
-        variables.map((v) => {
+    return (env) => {
+	const result = variables.map((v) => {
             return c.lookUp(v, env);
         });
+	return result;
+    }
 };
 
 const makeVariablesEqual = (v1, v2) => {
@@ -63,18 +65,22 @@ const relateLocalToWorld = (connector) => {
     const { x: xLocal, y: yLocal, z: zLocal } = connector.localPos;
     const { x: xWorld, y: yWorld, z: zWorld } = connector.worldPos;
 
-    const f1 = (zWorld, zLocal, zBeam) => zBeam + zLocal - zWorld;
+    const f1 = (zWorld, zLocal, zBeam) => zBeam - zWorld;
     const extractZs = generateExtractFn([zWorld, zLocal, zBeam]);
     functions_to_solve.push((env) => f1(...extractZs(env)));
 
     const extractXYVariables = generateExtractFn([xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle]);
 
-    const f2 = (xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle) => (xWorld - xBeam) * Math.cos(angle) + (yWorld - yBeam) * Math.sin(angle) - xLocal;
+    const f2 = (xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle) => {
+	return xBeam + Math.cos(angle) * xLocal - xWorld;
+    }
 
-    const f3 = (xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle) => -(xWorld - xBeam) * Math.sin(angle) + (yWorld - yBeam) * Math.cos(angle) - yLocal;
+    const f3 = (xBeam, yBeam, xLocal, yLocal, xWorld, yWorld, angle) => {
+	return yBeam - Math.sin(angle) * xLocal - yWorld;
+    }
 
-    functions_to_solve.push((env) => f2(...extractXYVariables(env)));
-    functions_to_solve.push((env) => f3(...extractXYVariables(env)));
+    functions_to_solve.push((env) => f2.apply(this, extractXYVariables(env)));
+    functions_to_solve.push((env) => f3.apply(this, extractXYVariables(env)));
 };
 
 module.exports = {
