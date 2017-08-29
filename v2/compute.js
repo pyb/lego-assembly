@@ -22,7 +22,7 @@ class Variable {
         if (!constant && !this.index) {
             this.index = nextIndex();
         }
-        else if (this.constant) {
+        if (this.constant) {
             constants.push(this);
         }
         else {
