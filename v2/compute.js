@@ -5,10 +5,10 @@ const h = require('./helpers2');
 // Relation object contains a function, as well as all the variables involved (name and location in the model and / or in the master list of all variables)
 
 // Use extractor functions to compose with relations, to obtain relevant variables from the master array of all variables.
-
-let nextIndex = h.makeCounter();
-let variables = [];
-let constants = [];
+// closure fn
+const nextIndex = h.makeCounter();
+const variables = [];
+const constants = [];
 
 class Variable {
     constructor(name=undefined,
@@ -16,33 +16,23 @@ class Variable {
                 index=undefined,
                 constant=undefined) {
         this.index = index;
-        this.value = value; // filled after solving with general non-linear solver
+        this.value = value;
         this.name = name;
         this.constant = constant;
         if (!constant && !this.index) {
             this.index = nextIndex();
         }
-        if (this.constant)
+        if (this.constant) {
             constants.push(this);
-        else
+        }
+        else {
             variables.push(this);
+        }
     };
 };
 
-// lookUp utility
-const lookUp = (variable, env) => {
-    let value;
-    if ((variable.constant === undefined) ||
-	(variable.constant === false))
-    {
-        let index = variable.index;
-        value = env[index];
-    }
-    else {
-	value = variable.constant;
-    }
-    return value;
-};
+// lookUp :: ([variable, env]) -> float
+const lookUp = (variable, env) => variable.constant || env[variable.index];
 
 module.exports = {
     Variable: Variable,

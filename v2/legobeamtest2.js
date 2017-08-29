@@ -20,7 +20,6 @@ const printFunctions = () => {
 let counter = 0;
 
 const buildModel = () => {
-
     const problem = 5;
 
     if (problem === 2)
@@ -116,39 +115,34 @@ const buildModel = () => {
 	beamD.connectors.map(g.relateLocalToWorld);
     }
 
-    //    printFunctions();
     const solver = s.create_solver();
     const Nvars = c.variables.length;
     console.log(Nvars + " variables.");
     console.log(g.functions_to_solve.length + " functions.");
     const master_function = (...env) => {
-	counter += 1;
-        const returnValues =  g.functions_to_solve.map((f) => {
-	    let retval = f(env);
-	    return retval;
-	});
-	return returnValues;
+        counter += 1;
+        return g.functions_to_solve.map((f) => {
+            let retval = f(env);
+            return retval;
+	      });
     };
     s.init_solver(solver, master_function, Nvars);
     const a = s.solve(solver);
 
     const results = s.copy_arraytype(a);
-    for (let i  = 0 ; i < Nvars ; i++)
-    {
-	c.variables[i].value = results[i];
+    for (let i  = 0 ; i < Nvars ; i++) {
+        c.variables[i].value = results[i];
     }
 };
 
-const convertModelToLDraw = (model) => {
-    return (model.bricks.map(d.convertBeamToLDraw)).join(' ');
-};
+const convertModelToLDraw = (model) => (model.bricks.map(d.convertBeamToLDraw)).join(' ');
 
 const save = (fileName) => {
     const lDrawStr = convertModelToLDraw(m.model);
     fs.writeFile(fileName, lDrawStr, (err) => {
-	if (err) {
+        if (err) {
             console.log(err);
-	}
+        }
     });
 };
 

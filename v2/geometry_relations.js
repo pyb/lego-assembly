@@ -3,38 +3,27 @@
 const m = require('./model2');
 const c = require('./compute');
 
-let functions_to_solve = [];
+const functions_to_solve = [];
 
-const generateExtractFn = (variables) => {
-    return (env) => {
-	const result = variables.map((v) => {
-            return c.lookUp(v, env);
-        });
-	return result;
-    }
-};
+// generateExtractFn :: ([variables]) -> fn
+const generateExtractFn = (variables) => (env) => variables.map((v) => c.lookUp(v, env));
 
 const makeVariablesEqual = (v1, v2) => {
     const f = (a, b) => a - b;
+    // extractv1Andv2 :: ([variable, variable]) -> [value, value]
     const extractv1Andv2 = generateExtractFn([v1, v2]);
     functions_to_solve.push((env) => f(...extractv1Andv2(env)));
 };
 
 // zA = zB
 const addEqualZconstraint = (beamA, beamB) => {
-    const zA = beamA.pos.z;
-    const zB = beamB.pos.z;
-    makeVariablesEqual(zA, zB);
+    makeVariablesEqual(beamA.pos.z, beamB.pos.z);
 };
 
 // zA = zB + 1
 const addZplus1constraint = (beamA, beamB) => {
-    const zA = beamA.pos.z;
-    const zB = beamB.pos.z;
-
     const f = (vZa, vZb) => vZa - vZb - 1;
-
-    const extractZaAndZb = generateExtractFn([zA, zB]);
+    const extractZaAndZb = generateExtractFn([beamA.pos.z, beamB.pos.z]);
     functions_to_solve.push((env) => f(...extractZaAndZb(env)));
 };
 
