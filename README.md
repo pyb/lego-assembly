@@ -1,10 +1,10 @@
 # Lego Assembly
 
-This is an experiment to model a Lego assembly. 
+This is an R&D project to figure out how to build a Lego Mindstorms robotics simulator. 
 
 ## License
 
-(C) View Systems Ltd, 2017
+© View Systems Ltd, 2017
 
 Lego Assembly is released under the <a href="https://opensource.org/licenses/lgpl-3.0.html">GPL-3.0 License<a/>.
 
